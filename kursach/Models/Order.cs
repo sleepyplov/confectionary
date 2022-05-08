@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Confectionery.Models
+{
+    class Order
+    {
+        public ulong ID { get; }
+        public List<OrderProduct> OrderProducts { get; }
+
+        public string CustomerEmail { get; set; }
+
+        public DateTime DeliveryDate { get; }
+
+        public string DeliveryAddress { get; }
+
+        public decimal TotalPrice { get; }
+
+        public Order(ulong id, string customerEmail, List<OrderProduct> orderProducts,
+            DateTime deliveryDate, string deliveryAddress)
+        {
+            ID = id;
+            CustomerEmail = customerEmail;
+            OrderProducts = orderProducts;
+            DeliveryDate = deliveryDate;
+            DeliveryAddress = deliveryAddress;
+            TotalPrice = orderProducts.Aggregate(0m, (ac, op) => ac + op.Product.Price);
+        }
+    }
+}
