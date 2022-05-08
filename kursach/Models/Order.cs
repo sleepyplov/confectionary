@@ -11,7 +11,7 @@ namespace Confectionery.Models
         public ulong ID { get; }
         public List<OrderProduct> OrderProducts { get; }
 
-        public string CustomerEmail { get; set; }
+        public ulong CustomerID { get; }
 
         public DateTime DeliveryDate { get; }
 
@@ -19,11 +19,11 @@ namespace Confectionery.Models
 
         public decimal TotalPrice { get; }
 
-        public Order(ulong id, string customerEmail, List<OrderProduct> orderProducts,
+        public Order(ulong id, ulong customerId, List<OrderProduct> orderProducts,
             DateTime deliveryDate, string deliveryAddress)
         {
             ID = id;
-            CustomerEmail = customerEmail;
+            CustomerID = customerId;
             OrderProducts = orderProducts;
             DeliveryDate = deliveryDate;
             DeliveryAddress = deliveryAddress;

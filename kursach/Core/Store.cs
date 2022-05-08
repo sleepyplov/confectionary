@@ -16,8 +16,7 @@ namespace Confectionery.Core
 
         private Dictionary<ulong, Product> _products;
         private Dictionary<ulong, Customer> _customers;
-
-        public List<Order> Orders { get; set; }
+        private Dictionary<ulong, Order> _orders;
 
         public event EventHandler<ErrorEventArgs> Error;
 
@@ -42,14 +41,20 @@ namespace Confectionery.Core
             _productIDCounter = 1;
             _customers = new Dictionary<ulong, Customer>
             {
-                { 1UL, new Customer(1, "Палатов", "Александр", "", "asdf@mail.ru") },
+                { 1UL, new Customer(1, "Александр", "Палатов", "", "asdf@mail.ru") },
             };
             _customerIDCounter = 1;
+            _orders = new Dictionary<ulong, Order>
+            {
+                { 1UL, new Order(1, 1,
+                    new List<OrderProduct>{new OrderProduct(_products[1], 2) },
+                    DateTime.Today.AddDays(2), "adres") }
+            };
         }
 
         #region Products
 
-        private IEnumerable<Product> FindProducts(string search)
+        public IEnumerable<Product> FindProducts(string search)
         {
             if (string.IsNullOrEmpty(search))
             {
@@ -108,8 +113,8 @@ namespace Confectionery.Core
                 Error?.Invoke(this, new ErrorEventArgs("Такого продукта не существует"));
                 return false;
             }
-            var isOrdered = Orders.Exists(
-                        o => o.OrderProducts.Exists(p => p.Product.ID == id));
+            var isOrdered = _orders.FirstOrDefault(
+                        kv => kv.Value.OrderProducts.Exists(p => p.Product.ID == id)).Key != 0;
             if (isOrdered)
             {
                 Error?.Invoke(this, new ErrorEventArgs("Есть заказы на этот продукт"));
@@ -123,7 +128,7 @@ namespace Confectionery.Core
 
         #region Customers
 
-        private IEnumerable<Customer> FindCustomers(string search)
+        public IEnumerable<Customer> FindCustomers(string search)
         {
             if (string.IsNullOrEmpty(search))
             {
@@ -195,6 +200,32 @@ namespace Confectionery.Core
             _customers.Remove(id);
             return true;
         }
+        #endregion
+
+        #region Orders
+
+        private IEnumerable<Order> FindOrders(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return _orders.Values;
+            }
+            var searcher = new Searcher(search);
+            return _orders.Values.Where(o => searcher.MatchString(o.ID.ToString()) ||
+                searcher.MatchString(_customers[o.CustomerID].Email));
+        }
+
+        public IList<OrderTableItem> GetOrdersTable(string search = "")
+        {
+            var found = FindOrders(search);
+            return found.Select(o => new OrderTableItem(o, _customers[o.CustomerID])).ToList();
+        }
+
+        public Order GetOrder(ulong id)
+        {
+            return _orders.TryGetValue(id, out Order o) ? o : null;
+        }
+
         #endregion
     }
 }

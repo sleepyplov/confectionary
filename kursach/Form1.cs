@@ -24,8 +24,10 @@ namespace Confectionery
             _store.Error += _store_Error;
             productsTable.AutoGenerateColumns = false;
             customersTable.AutoGenerateColumns = false;
+            ordersTable.AutoGenerateColumns = false;
             productsTable.DataSource = _store.GetProductsTable();
             customersTable.DataSource = _store.GetCustomersTable();
+            ordersTable.DataSource = _store.GetOrdersTable();
         }
 
         private void _store_Error(object sender, ErrorEventArgs e)
@@ -99,6 +101,12 @@ namespace Confectionery
             var rowItem = (CustomerTableItem)customersTable.Rows[e.RowIndex].DataBoundItem;
             var customer = _store.GetCustomer(rowItem.ID);
             showCustomerForm(customer);
+        }
+
+        private void createOrderBtn_Click(object sender, EventArgs e)
+        {
+            var form = new OrderForm(_store);
+            form.ShowDialog();
         }
     }
 }

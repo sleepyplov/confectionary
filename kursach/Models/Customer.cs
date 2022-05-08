@@ -9,8 +9,6 @@ namespace Confectionery.Models
 {
     class Customer
     {
-        private string _email;
-
         public ulong ID { get; }
         public string FirstName { get; set; }
 
@@ -18,21 +16,7 @@ namespace Confectionery.Models
 
         public string MiddleName { get; set; }
 
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-                foreach (var order in Orders)
-                {
-                    order.CustomerEmail = value;
-                }
-            }
-        }
+        public string Email { get; set; }
 
         public ObservableCollection<Order> Orders { get; set; } = new ObservableCollection<Order>();
 
@@ -51,6 +35,16 @@ namespace Confectionery.Models
         private void calcTotalOrdersPrice()
         {
             TotalOrdersPrice = Orders.Aggregate(0m, (ac, o) => ac + o.TotalPrice);
+        }
+
+        public string GetListBoxString()
+        {
+            if (string.IsNullOrEmpty(MiddleName))
+            {
+                return $"{LastName} {FirstName[0]}., {Email}";
+            }
+            return $"{LastName} {FirstName[0]}.{MiddleName[0]}., {Email}";
+
         }
     }
 }

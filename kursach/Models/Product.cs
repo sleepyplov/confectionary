@@ -29,5 +29,10 @@ namespace Confectionery.Models
             Quantity = quantity;
             ExpiryDate = expiry;
         }
+
+        public string GetListBoxString()
+        {
+            return $"{Name}, {Price}";
+        }
     }
 }

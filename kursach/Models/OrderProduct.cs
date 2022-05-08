@@ -16,5 +16,10 @@ namespace Confectionery.Models
             Product = product;
             Count = count;
         }
+        
+        public string GetListBoxString()
+        {
+            return $"{Product.Name} x{Count}";
+        }
     }
 }
