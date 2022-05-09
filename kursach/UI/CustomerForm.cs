@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using Confectionery.Models;
 using Confectionery.Core;
 
@@ -14,6 +15,9 @@ namespace Confectionery.UI
 {
     partial class CustomerForm : Form
     {
+        private readonly Regex _nameRegex = new Regex(@"^[А-Я][а-я]*$");
+        private readonly Regex _emailRegex =new Regex(@"^(?:(?:(?:(?:[a-zA-Z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(?:\.([a-zA-Z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|(?:(?:\x22)(?:(?:(?:(?:\x20|\x09)*(?:\x0D\x0A))?(?:\x20|\x09)+)?(?:(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x7F]|\x21|[\x23-\x5B]|[\x5D-\x7E]|[\x00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[\x01-\x09\x0B\x0C\x0D-\x7F]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(?:(?:(?:\x20|\x09)*(?:\x0D\x0A))?(\x20|\x09)+)?(?:\x22))))@(?:(?:(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(?:[a-zA-Z]|\d|-|\.|~|[\x00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(?:(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(?:[a-zA-Z]|\d|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$");
+
         private Customer _customer;
         public CustomerForm(Customer customer = null)
         {
@@ -33,6 +37,29 @@ namespace Confectionery.UI
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            if (!_nameRegex.IsMatch(firstNameInput.Text))
+            {
+                MessageBox.Show("Введите корректное имя");
+                return;
+            }
+            if (!_nameRegex.IsMatch(lastNameInput.Text))
+            {
+                MessageBox.Show("Введите корректную фамилию");
+                return;
+            }
+            if (middleNameInput.Text.Length > 0)
+            {
+                if (!_nameRegex.IsMatch(middleNameInput.Text))
+                {
+                    MessageBox.Show("Введите корректное отчество");
+                    return;
+                }
+            }
+            if (!_emailRegex.IsMatch(emailInput.Text))
+            {
+                MessageBox.Show("Введите корректный email");
+                return;
+            }
             CustomerEventArgs args;
             if (_customer == null)
             {

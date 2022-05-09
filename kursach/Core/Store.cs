@@ -238,6 +238,21 @@ namespace Confectionery.Core
                 Error?.Invoke(this, new ErrorEventArgs("Указанного заказчика не существует"));
                 return false;
             }
+            foreach (var op in orderProducts)
+            {
+                if (!_products.ContainsKey(op.Product.ID))
+                {
+                    Error?.Invoke(this, new ErrorEventArgs($"Продукта \"{op.Product.Name}\" не существует"));
+                    return false;
+                }
+                var p = _products[op.Product.ID];
+                if (p.Quantity < op.Count)
+                {
+                    Error?.Invoke(this, new ErrorEventArgs($"Для продукта \"{op.Product.Name}\" указано количество больше, чем на складе"));
+                    return false;
+                }
+                p.Quantity -= op.Count;
+            }
             var created = new Order(++_orderIDCounter, customerID, orderProducts,
                 deliveryDate, deliveryAddress);
             _orders.Add(_orderIDCounter, created);
@@ -286,6 +301,10 @@ namespace Confectionery.Core
                 Error?.Invoke(this, new ErrorEventArgs("Заказ уже отменен"));
                 return false;
             }
+            foreach (var op in order.OrderProducts)
+            {
+                op.Product.Quantity += op.Count;
+            }
             order.Status = OrderStatus.Canceled;
             return true;
         }
@@ -303,6 +322,7 @@ namespace Confectionery.Core
                 Error?.Invoke(this,
                     new ErrorEventArgs("Можно удалять только доставленные и отменненные заказы"));
             }
+            _customers[order.CustomerID].Orders.RemoveAll(o => o.ID == id);
             _orders.Remove(id);
             return true;
         }

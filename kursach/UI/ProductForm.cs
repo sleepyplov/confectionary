@@ -44,6 +44,26 @@ namespace Confectionery.UI
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            if (nameInput.Text.Length == 0)
+            {
+                MessageBox.Show("Название не может быть пустым");
+                return;
+            }
+            if (priceInput.Value < 1)
+            {
+                MessageBox.Show("Цена должна быть хотя бы 1 рубль");
+                return;
+            }
+            if (quantityInput.Value < 0)
+            {
+                MessageBox.Show("Количество не может быть отрицательным");
+                return;
+            }
+            if (contentsBox.Items.Count == 0)
+            {
+                MessageBox.Show("Состав не может быть пустым");
+                return;
+            }
             ProductEventArgs args;
             if (_product == null)
             {

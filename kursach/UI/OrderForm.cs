@@ -132,6 +132,12 @@ namespace Confectionery.UI
             orderProductQuantityInput.Maximum = _selectedProduct.Quantity;
         }
 
+        private void updateTotalPrice()
+        {
+            var total = _orderProducts.Aggregate(0m, (ac, op) => ac + op.Product.Price * op.Count);
+            totalPriceLabel.Text = $"Итого: {total}";
+        }
+
         private void addProductBtn_Click(object sender, EventArgs e)
         {
             var orderProduct = new OrderProduct(_selectedProduct,
@@ -146,12 +152,14 @@ namespace Confectionery.UI
             deliveryDateCalendar.MaxDate = minDeliveryDate;
             addProductBtn.Visible = false;
             removeProductBtn.Visible = true;
+            updateTotalPrice();
         }
 
         private void removeProductBtn_Click(object sender, EventArgs e)
         {
             _orderProducts.RemoveAt(orderProductsBox.SelectedIndex);
             orderProductsBox.Items.RemoveAt(orderProductsBox.SelectedIndex);
+            updateTotalPrice();
         }
 
         private void orderProductsBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,6 +193,33 @@ namespace Confectionery.UI
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            if (_selectedCustomer == null)
+            {
+                MessageBox.Show("Выберите заказчика");
+                return;
+            }
+            if (_orderProducts.Count == 0)
+            {
+                MessageBox.Show("Нельзя создать заказ без продуктов");
+                return;
+            }
+            if (deliveryAddressInput.Text.Length == 0)
+            {
+                MessageBox.Show("Адрес доставки не может быть пустым");
+            }
+            foreach (var op in _orderProducts)
+            {
+                if (op.Count > op.Product.Quantity)
+                {
+                    MessageBox.Show($"Для продукта \"{ op.Product.Name}\" выбрано количество больше, чем на складе ");
+                    return;
+                }
+                if (deliveryDateCalendar.SelectionEnd > op.Product.ExpiryDate)
+                {
+                    MessageBox.Show($"Выбрана дата доставки позже, чем срок хранения продукта \"{op.Product.Name}\"");
+                    return;
+                }
+            }
             var result = _store.CreateOrder(_selectedCustomer.ID, _orderProducts,
                 deliveryDateCalendar.SelectionStart, deliveryAddressInput.Text);
             if (result)
@@ -198,14 +233,23 @@ namespace Confectionery.UI
             if (_selectedOrderProduct == null || orderProductsBox.SelectedIndex < 0 ||
                 orderProductsBox.SelectedIndex >= _orderProducts.Count)
             {
+                if (orderProductQuantityInput.Value > _selectedProduct.Quantity)
+                {
+                    orderProductQuantityInput.Value = _selectedProduct.Quantity;
+                }
                 return;
             }
             else
             {
+                if (orderProductQuantityInput.Value > _selectedOrderProduct.Product.Quantity)
+                {
+                    orderProductQuantityInput.Value = _selectedOrderProduct.Product.Quantity;
+                }
                 _orderProducts[orderProductsBox.SelectedIndex].Count =
                     (uint)orderProductQuantityInput.Value;
                 orderProductsBox.Items[orderProductsBox.SelectedIndex] =
                     _orderProducts[orderProductsBox.SelectedIndex].GetListBoxString();
+                updateTotalPrice();
             }
         }
     }

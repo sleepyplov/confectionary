@@ -111,7 +111,7 @@ namespace Confectionery.UI
             // 
             // submitBtn
             // 
-            this.submitBtn.Location = new System.Drawing.Point(340, 323);
+            this.submitBtn.Location = new System.Drawing.Point(154, 128);
             this.submitBtn.Name = "submitBtn";
             this.submitBtn.Size = new System.Drawing.Size(132, 26);
             this.submitBtn.TabIndex = 8;
@@ -121,7 +121,7 @@ namespace Confectionery.UI
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(202, 323);
+            this.cancelBtn.Location = new System.Drawing.Point(12, 128);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(132, 26);
             this.cancelBtn.TabIndex = 9;
@@ -133,7 +133,7 @@ namespace Confectionery.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 361);
+            this.ClientSize = new System.Drawing.Size(298, 166);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.submitBtn);
             this.Controls.Add(this.emailInput);

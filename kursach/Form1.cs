@@ -34,8 +34,9 @@ namespace Confectionery
 
         private void _store_OrderCreated(object sender, EventArgs e)
         {
-            customersTable.DataSource = _store.GetCustomersTable();
-            ordersTable.DataSource = _store.GetOrdersTable();
+            productsTable.DataSource = _store.GetProductsTable(productSearchBox.Text);
+            customersTable.DataSource = _store.GetCustomersTable(searchCustomerBox.Text);
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text, _selectedOrderStatus);
         }
 
         private void _store_Error(object sender, ErrorEventArgs e)
@@ -191,6 +192,8 @@ namespace Confectionery
             }
             if (result)
             {
+                productsTable.DataSource = _store.GetProductsTable(productSearchBox.Text);
+                customersTable.DataSource = _store.GetCustomersTable(searchCustomerBox.Text);
                 ordersTable.DataSource = _store.GetOrdersTable(
                     searchOrderBox.Text, _selectedOrderStatus);
             }
@@ -249,6 +252,7 @@ namespace Confectionery
             var result = _store.CancelOrder(rowItem.ID);
             if (result)
             {
+                productsTable.DataSource = _store.GetProductsTable(productSearchBox.Text);
                 ordersTable.DataSource = _store.GetOrdersTable(
                     searchOrderBox.Text, _selectedOrderStatus);
             }
