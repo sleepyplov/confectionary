@@ -14,6 +14,7 @@ namespace Confectionery.Core
         public decimal TotalPrice { get; }
         public string DeliveryAddress { get; }
         public DateTime DeliveryDate { get; }
+        public OrderStatus Status { get; }
 
         public OrderTableItem(Order order, Customer customer)
         {
@@ -22,6 +23,7 @@ namespace Confectionery.Core
             TotalPrice = order.TotalPrice;
             DeliveryAddress = order.DeliveryAddress;
             DeliveryDate = order.DeliveryDate;
+            Status = order.Status;
         }
     }
 }

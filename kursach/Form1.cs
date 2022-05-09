@@ -16,6 +16,7 @@ namespace Confectionery
     public partial class Form1 : Form
     {
         private Store _store;
+        private OrderStatus _selectedOrderStatus = OrderStatus.Created;
 
         public Form1()
         {
@@ -84,7 +85,7 @@ namespace Confectionery
 
         private void productsTable_SelectionChanged(object sender, EventArgs e)
         {
-            deleteProductButton.Visible = productsTable.SelectedRows.Count > 0;
+            deleteProductButton.Enabled = productsTable.SelectedRows.Count > 0;
         }
 
         private void productForm_Submit(object sender, ProductEventArgs e)
@@ -149,7 +150,7 @@ namespace Confectionery
 
         private void customersTable_SelectionChanged(object sender, EventArgs e)
         {
-            deleteCustomerBtn.Visible = customersTable.SelectedRows.Count > 0;
+            deleteCustomerBtn.Enabled = customersTable.SelectedRows.Count > 0;
         }
 
         private void searchCustomerBtn_Click(object sender, EventArgs e)
@@ -165,7 +166,9 @@ namespace Confectionery
 
         private void ordersTable_SelectionChanged(object sender, EventArgs e)
         {
-            confirmOrderBtn.Visible = ordersTable.SelectedRows.Count > 0;
+            confirmOrderBtn.Enabled = ordersTable.SelectedRows.Count > 0;
+            cancelOrderBtn.Enabled = _selectedOrderStatus == OrderStatus.Created &&
+                ordersTable.SelectedRows.Count > 0;
         }
 
         private void confirmOrderBtn_Click(object sender, EventArgs e)
@@ -177,16 +180,78 @@ namespace Confectionery
             }
             var rowIndex = ordersTable.SelectedRows[0].Index;
             var rowItem = (OrderTableItem)ordersTable.Rows[rowIndex].DataBoundItem;
-            var result = _store.ConfirmDelivery(rowItem.ID);
+            bool result;
+            if (rowItem.Status == OrderStatus.Created)
+            {
+                result = _store.ConfirmOrder(rowItem.ID);
+            }
+            else
+            {
+                result = _store.DeleteOrder(rowItem.ID);
+            }
             if (result)
             {
-                ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text);
+                ordersTable.DataSource = _store.GetOrdersTable(
+                    searchOrderBox.Text, _selectedOrderStatus);
             }
         }
 
         private void searchOrderBtn_Click(object sender, EventArgs e)
         {
-            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text);
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text, _selectedOrderStatus);
+        }
+
+        private void showCreatedOrdersBtn_Click(object sender, EventArgs e)
+        {
+            _selectedOrderStatus = OrderStatus.Created;
+            showCreatedOrdersBtn.Enabled = false;
+            showDeliveredOrdersBtn.Enabled = true;
+            showCanceledOrdersBtn.Enabled = true;
+            cancelOrderBtn.Enabled = true;
+            confirmOrderBtn.Text = "Подтвердить доставку";
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text,
+                _selectedOrderStatus);
+        }
+
+        private void showDeliveredOrdersBtn_Click(object sender, EventArgs e)
+        {
+            _selectedOrderStatus = OrderStatus.Deliverered;
+            showCreatedOrdersBtn.Enabled = true;
+            showDeliveredOrdersBtn.Enabled = false;
+            showCanceledOrdersBtn.Enabled = true;
+            cancelOrderBtn.Enabled = false;
+            confirmOrderBtn.Text = "Удалить заказ";
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text,
+                _selectedOrderStatus);
+        }
+
+        private void showCanceledOrdersBtn_Click(object sender, EventArgs e)
+        {
+            _selectedOrderStatus = OrderStatus.Canceled;
+            showCreatedOrdersBtn.Enabled = true;
+            showDeliveredOrdersBtn.Enabled = false;
+            showCanceledOrdersBtn.Enabled = false;
+            cancelOrderBtn.Enabled = false;
+            confirmOrderBtn.Text = "Удалить заказ";
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text,
+                _selectedOrderStatus);
+        }
+
+        private void cancelOrderBtn_Click(object sender, EventArgs e)
+        {
+            if (ordersTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите заказ");
+                return;
+            }
+            var rowIndex = ordersTable.SelectedRows[0].Index;
+            var rowItem = (OrderTableItem)ordersTable.Rows[rowIndex].DataBoundItem;
+            var result = _store.CancelOrder(rowItem.ID);
+            if (result)
+            {
+                ordersTable.DataSource = _store.GetOrdersTable(
+                    searchOrderBox.Text, _selectedOrderStatus);
+            }
         }
     }
 }

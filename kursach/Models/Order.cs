@@ -19,6 +19,8 @@ namespace Confectionery.Models
 
         public decimal TotalPrice { get; }
 
+        public OrderStatus Status { get; set; } = OrderStatus.Created;
+
         public Order(ulong id, ulong customerId, List<OrderProduct> orderProducts,
             DateTime deliveryDate, string deliveryAddress)
         {

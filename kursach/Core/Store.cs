@@ -207,20 +207,21 @@ namespace Confectionery.Core
 
         #region Orders
 
-        private IEnumerable<Order> FindOrders(string search)
+        private IEnumerable<Order> FindOrders(string search, OrderStatus status)
         {
+            var values = _orders.Values.Where(o => o.Status == status);
             if (string.IsNullOrEmpty(search))
             {
-                return _orders.Values;
+                return values;
             }
             var searcher = new Searcher(search);
-            return _orders.Values.Where(o => searcher.MatchString(o.ID.ToString()) ||
+            return values.Where(o => searcher.MatchString(o.ID.ToString()) ||
                 searcher.MatchString(_customers[o.CustomerID].Email));
         }
 
-        public IList<OrderTableItem> GetOrdersTable(string search = "")
+        public IList<OrderTableItem> GetOrdersTable(string search = "", OrderStatus status = OrderStatus.Created)
         {
-            var found = FindOrders(search);
+            var found = FindOrders(search, status);
             return found.Select(o => new OrderTableItem(o, _customers[o.CustomerID])).ToList();
         }
 
@@ -245,15 +246,63 @@ namespace Confectionery.Core
             return true;
         }
 
-        public bool ConfirmDelivery(ulong id)
+        public bool ConfirmOrder(ulong id)
         {
             if (!_orders.ContainsKey(id))
             {
                 Error?.Invoke(this, new ErrorEventArgs("Такого заказа не существует"));
                 return false;
             }
-            var customer = _customers[_orders[id].CustomerID];
-            customer.Orders.RemoveAll(o => o.ID == id);
+            var order = _orders[id];
+            if (order.Status == OrderStatus.Deliverered)
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Заказ уже доставлен"));
+                return false;
+            }
+            if (order.Status == OrderStatus.Canceled)
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Заказ был отменен"));
+                return false;
+            }
+            order.Status = OrderStatus.Deliverered;
+            return true;
+        }
+
+        public bool CancelOrder(ulong id)
+        {
+            if (!_orders.ContainsKey(id))
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Такого заказа не существует"));
+                return false;
+            }
+            var order = _orders[id];
+            if (order.Status == OrderStatus.Deliverered)
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Заказ уже доставлен"));
+                return false;
+            }
+            if (order.Status == OrderStatus.Canceled)
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Заказ уже отменен"));
+                return false;
+            }
+            order.Status = OrderStatus.Canceled;
+            return true;
+        }
+
+        public bool DeleteOrder(ulong id)
+        {
+            if (!_orders.ContainsKey(id))
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Такого заказа не существует"));
+                return false;
+            }
+            var order = _orders[id];
+            if (order.Status != OrderStatus.Canceled && order.Status != OrderStatus.Deliverered)
+            {
+                Error?.Invoke(this,
+                    new ErrorEventArgs("Можно удалять только доставленные и отменненные заказы"));
+            }
             _orders.Remove(id);
             return true;
         }
