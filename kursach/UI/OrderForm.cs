@@ -25,6 +25,9 @@ namespace Confectionery.UI
         {
             InitializeComponent();
             _store = store;
+            deliveryDateCalendar.MinDate = DateTime.Today.AddDays(1);
+            deliveryDateCalendar.MaxDate = DateTime.Today.AddDays(14);
+            deliveryDateCalendar.SetDate(DateTime.Today.AddDays(1));
         }
 
         private void SearchCustomers()
@@ -82,6 +85,8 @@ namespace Confectionery.UI
 
         private void HideCurrentProduct()
         {
+            _selectedProduct = null;
+            _selectedOrderProduct = null;
             productNameLabel.Text = "";
             productPriceLabel.Text = "";
             productQuantityLabel.Text = "";
@@ -133,6 +138,12 @@ namespace Confectionery.UI
                 (uint)orderProductQuantityInput.Value);
             _orderProducts.Add(orderProduct);
             orderProductsBox.Items.Add(orderProduct.GetListBoxString());
+            var minDeliveryDate = _orderProducts.Min(op => op.Product.ExpiryDate);
+            if (deliveryDateCalendar.SelectionEnd > minDeliveryDate)
+            {
+                deliveryDateCalendar.SetDate(minDeliveryDate);
+            }
+            deliveryDateCalendar.MaxDate = minDeliveryDate;
             addProductBtn.Visible = false;
             removeProductBtn.Visible = true;
         }
@@ -164,6 +175,37 @@ namespace Confectionery.UI
             else
             {
                 HideCurrentProduct();
+            }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void submitBtn_Click(object sender, EventArgs e)
+        {
+            var result = _store.CreateOrder(_selectedCustomer.ID, _orderProducts,
+                deliveryDateCalendar.SelectionStart, deliveryAddressInput.Text);
+            if (result)
+            {
+                Close();
+            }
+        }
+
+        private void orderProductQuantityInput_ValueChanged(object sender, EventArgs e)
+        {
+            if (_selectedOrderProduct == null || orderProductsBox.SelectedIndex < 0 ||
+                orderProductsBox.SelectedIndex >= _orderProducts.Count)
+            {
+                return;
+            }
+            else
+            {
+                _orderProducts[orderProductsBox.SelectedIndex].Count =
+                    (uint)orderProductQuantityInput.Value;
+                orderProductsBox.Items[orderProductsBox.SelectedIndex] =
+                    _orderProducts[orderProductsBox.SelectedIndex].GetListBoxString();
             }
         }
     }

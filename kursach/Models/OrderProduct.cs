@@ -9,7 +9,7 @@ namespace Confectionery.Models
     class OrderProduct
     {
         public Product Product { get; }
-        public uint Count { get; }
+        public uint Count { get; set; }
 
         public OrderProduct(Product product, uint count)
         {

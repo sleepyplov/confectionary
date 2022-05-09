@@ -19,6 +19,7 @@ namespace Confectionery.Core
         private Dictionary<ulong, Order> _orders;
 
         public event EventHandler<ErrorEventArgs> Error;
+        public event EventHandler OrderCreated;
 
         public Store()
         {
@@ -50,6 +51,8 @@ namespace Confectionery.Core
                     new List<OrderProduct>{new OrderProduct(_products[1], 2) },
                     DateTime.Today.AddDays(2), "adres") }
             };
+            _orderIDCounter = 1;
+            _customers[1].Orders.Add(_orders[1]);
         }
 
         #region Products
@@ -168,7 +171,7 @@ namespace Confectionery.Core
                     _customers.Add(_customerIDCounter, created);
                     return true;
                 case CustomerEventType.Update:
-                    if (_customers.ContainsKey(e.ID))
+                    if (!_customers.ContainsKey(e.ID))
                     {
                         Error?.Invoke(this, new ErrorEventArgs("Такого заказчика не существует"));
                         return false;
@@ -224,6 +227,35 @@ namespace Confectionery.Core
         public Order GetOrder(ulong id)
         {
             return _orders.TryGetValue(id, out Order o) ? o : null;
+        }
+
+        public bool CreateOrder(ulong customerID, List<OrderProduct> orderProducts,
+            DateTime deliveryDate, string deliveryAddress)
+        {
+            if (!_customers.ContainsKey(customerID))
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Указанного заказчика не существует"));
+                return false;
+            }
+            var created = new Order(++_orderIDCounter, customerID, orderProducts,
+                deliveryDate, deliveryAddress);
+            _orders.Add(_orderIDCounter, created);
+            _customers[customerID].Orders.Add(created);
+            OrderCreated?.Invoke(this, new EventArgs());
+            return true;
+        }
+
+        public bool ConfirmDelivery(ulong id)
+        {
+            if (!_orders.ContainsKey(id))
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Такого заказа не существует"));
+                return false;
+            }
+            var customer = _customers[_orders[id].CustomerID];
+            customer.Orders.RemoveAll(o => o.ID == id);
+            _orders.Remove(id);
+            return true;
         }
 
         #endregion

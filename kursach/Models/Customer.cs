@@ -18,9 +18,7 @@ namespace Confectionery.Models
 
         public string Email { get; set; }
 
-        public ObservableCollection<Order> Orders { get; set; } = new ObservableCollection<Order>();
-
-        public decimal TotalOrdersPrice { get; private set; } = 0m;
+        public List<Order> Orders { get; set; } = new List<Order>();
 
         public Customer(ulong id, string firstName, string lastName, string middleName, string email)
         {
@@ -29,12 +27,6 @@ namespace Confectionery.Models
             LastName = lastName;
             MiddleName = middleName;
             Email = email;
-            calcTotalOrdersPrice();
-        }
-
-        private void calcTotalOrdersPrice()
-        {
-            TotalOrdersPrice = Orders.Aggregate(0m, (ac, o) => ac + o.TotalPrice);
         }
 
         public string GetListBoxString()

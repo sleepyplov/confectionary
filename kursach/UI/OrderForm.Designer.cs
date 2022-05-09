@@ -49,6 +49,10 @@ namespace Confectionery.UI
             this.totalPriceLabel = new System.Windows.Forms.Label();
             this.submitBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.deliveryAddressInput = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.deliveryDateCalendar = new System.Windows.Forms.MonthCalendar();
             ((System.ComponentModel.ISupportInitialize)(this.orderProductQuantityInput)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +70,7 @@ namespace Confectionery.UI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(12, 91);
+            this.label2.Location = new System.Drawing.Point(12, 192);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 1;
@@ -104,7 +108,7 @@ namespace Confectionery.UI
             // searchProductInput
             // 
             this.searchProductInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.searchProductInput.Location = new System.Drawing.Point(15, 110);
+            this.searchProductInput.Location = new System.Drawing.Point(15, 211);
             this.searchProductInput.Name = "searchProductInput";
             this.searchProductInput.Size = new System.Drawing.Size(165, 22);
             this.searchProductInput.TabIndex = 5;
@@ -112,7 +116,7 @@ namespace Confectionery.UI
             // 
             // searchProductBtn
             // 
-            this.searchProductBtn.Location = new System.Drawing.Point(189, 110);
+            this.searchProductBtn.Location = new System.Drawing.Point(189, 211);
             this.searchProductBtn.Name = "searchProductBtn";
             this.searchProductBtn.Size = new System.Drawing.Size(116, 22);
             this.searchProductBtn.TabIndex = 6;
@@ -123,7 +127,7 @@ namespace Confectionery.UI
             // selectAddProductBox
             // 
             this.selectAddProductBox.FormattingEnabled = true;
-            this.selectAddProductBox.Location = new System.Drawing.Point(15, 138);
+            this.selectAddProductBox.Location = new System.Drawing.Point(15, 239);
             this.selectAddProductBox.Name = "selectAddProductBox";
             this.selectAddProductBox.Size = new System.Drawing.Size(290, 21);
             this.selectAddProductBox.TabIndex = 7;
@@ -132,7 +136,7 @@ namespace Confectionery.UI
             // orderProductsBox
             // 
             this.orderProductsBox.FormattingEnabled = true;
-            this.orderProductsBox.Location = new System.Drawing.Point(342, 134);
+            this.orderProductsBox.Location = new System.Drawing.Point(342, 235);
             this.orderProductsBox.Name = "orderProductsBox";
             this.orderProductsBox.Size = new System.Drawing.Size(143, 212);
             this.orderProductsBox.TabIndex = 8;
@@ -142,7 +146,7 @@ namespace Confectionery.UI
             // 
             this.productNameLabel.AutoSize = true;
             this.productNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.productNameLabel.Location = new System.Drawing.Point(12, 179);
+            this.productNameLabel.Location = new System.Drawing.Point(12, 280);
             this.productNameLabel.Name = "productNameLabel";
             this.productNameLabel.Size = new System.Drawing.Size(80, 16);
             this.productNameLabel.TabIndex = 9;
@@ -152,7 +156,7 @@ namespace Confectionery.UI
             // 
             this.productPriceLabel.AutoSize = true;
             this.productPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.productPriceLabel.Location = new System.Drawing.Point(12, 205);
+            this.productPriceLabel.Location = new System.Drawing.Point(12, 306);
             this.productPriceLabel.Name = "productPriceLabel";
             this.productPriceLabel.Size = new System.Drawing.Size(47, 16);
             this.productPriceLabel.TabIndex = 10;
@@ -162,7 +166,7 @@ namespace Confectionery.UI
             // 
             this.productQuantityLabel.AutoSize = true;
             this.productQuantityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.productQuantityLabel.Location = new System.Drawing.Point(12, 232);
+            this.productQuantityLabel.Location = new System.Drawing.Point(12, 333);
             this.productQuantityLabel.Name = "productQuantityLabel";
             this.productQuantityLabel.Size = new System.Drawing.Size(160, 16);
             this.productQuantityLabel.TabIndex = 11;
@@ -172,7 +176,7 @@ namespace Confectionery.UI
             // 
             this.productExpiryLabel.AutoSize = true;
             this.productExpiryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.productExpiryLabel.Location = new System.Drawing.Point(12, 259);
+            this.productExpiryLabel.Location = new System.Drawing.Point(12, 360);
             this.productExpiryLabel.Name = "productExpiryLabel";
             this.productExpiryLabel.Size = new System.Drawing.Size(110, 16);
             this.productExpiryLabel.TabIndex = 12;
@@ -182,7 +186,7 @@ namespace Confectionery.UI
             // 
             this.orderProductQuantityLabel.AutoSize = true;
             this.orderProductQuantityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.orderProductQuantityLabel.Location = new System.Drawing.Point(12, 285);
+            this.orderProductQuantityLabel.Location = new System.Drawing.Point(12, 386);
             this.orderProductQuantityLabel.Name = "orderProductQuantityLabel";
             this.orderProductQuantityLabel.Size = new System.Drawing.Size(153, 16);
             this.orderProductQuantityLabel.TabIndex = 13;
@@ -190,14 +194,15 @@ namespace Confectionery.UI
             // 
             // orderProductQuantityInput
             // 
-            this.orderProductQuantityInput.Location = new System.Drawing.Point(171, 285);
+            this.orderProductQuantityInput.Location = new System.Drawing.Point(171, 386);
             this.orderProductQuantityInput.Name = "orderProductQuantityInput";
             this.orderProductQuantityInput.Size = new System.Drawing.Size(89, 20);
             this.orderProductQuantityInput.TabIndex = 14;
+            this.orderProductQuantityInput.ValueChanged += new System.EventHandler(this.orderProductQuantityInput_ValueChanged);
             // 
             // addProductBtn
             // 
-            this.addProductBtn.Location = new System.Drawing.Point(15, 319);
+            this.addProductBtn.Location = new System.Drawing.Point(15, 420);
             this.addProductBtn.Name = "addProductBtn";
             this.addProductBtn.Size = new System.Drawing.Size(133, 27);
             this.addProductBtn.TabIndex = 15;
@@ -207,7 +212,7 @@ namespace Confectionery.UI
             // 
             // removeProductBtn
             // 
-            this.removeProductBtn.Location = new System.Drawing.Point(154, 319);
+            this.removeProductBtn.Location = new System.Drawing.Point(154, 420);
             this.removeProductBtn.Name = "removeProductBtn";
             this.removeProductBtn.Size = new System.Drawing.Size(133, 27);
             this.removeProductBtn.TabIndex = 16;
@@ -219,7 +224,7 @@ namespace Confectionery.UI
             // 
             this.totalPriceLabel.AutoSize = true;
             this.totalPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.totalPriceLabel.Location = new System.Drawing.Point(339, 110);
+            this.totalPriceLabel.Location = new System.Drawing.Point(339, 211);
             this.totalPriceLabel.Name = "totalPriceLabel";
             this.totalPriceLabel.Size = new System.Drawing.Size(50, 16);
             this.totalPriceLabel.TabIndex = 17;
@@ -227,27 +232,68 @@ namespace Confectionery.UI
             // 
             // submitBtn
             // 
-            this.submitBtn.Location = new System.Drawing.Point(438, 373);
+            this.submitBtn.Location = new System.Drawing.Point(438, 474);
             this.submitBtn.Name = "submitBtn";
             this.submitBtn.Size = new System.Drawing.Size(134, 26);
             this.submitBtn.TabIndex = 18;
             this.submitBtn.Text = "Сохранить";
             this.submitBtn.UseVisualStyleBackColor = true;
+            this.submitBtn.Click += new System.EventHandler(this.submitBtn_Click);
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(298, 373);
+            this.cancelBtn.Location = new System.Drawing.Point(298, 474);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(134, 26);
             this.cancelBtn.TabIndex = 19;
             this.cancelBtn.Text = "Отмена";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(12, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 16);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Адрес доставки: ";
+            // 
+            // deliveryAddressInput
+            // 
+            this.deliveryAddressInput.Location = new System.Drawing.Point(131, 90);
+            this.deliveryAddressInput.Name = "deliveryAddressInput";
+            this.deliveryAddressInput.Size = new System.Drawing.Size(174, 20);
+            this.deliveryAddressInput.TabIndex = 21;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(339, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(110, 16);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Дата доставки: ";
+            // 
+            // deliveryDateCalendar
+            // 
+            this.deliveryDateCalendar.Location = new System.Drawing.Point(342, 34);
+            this.deliveryDateCalendar.MaxSelectionCount = 1;
+            this.deliveryDateCalendar.Name = "deliveryDateCalendar";
+            this.deliveryDateCalendar.ShowToday = false;
+            this.deliveryDateCalendar.TabIndex = 23;
             // 
             // OrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 411);
+            this.ClientSize = new System.Drawing.Size(584, 511);
+            this.Controls.Add(this.deliveryDateCalendar);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.deliveryAddressInput);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.submitBtn);
             this.Controls.Add(this.totalPriceLabel);
@@ -298,5 +344,9 @@ namespace Confectionery.UI
         private System.Windows.Forms.Label totalPriceLabel;
         private System.Windows.Forms.Button submitBtn;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox deliveryAddressInput;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.MonthCalendar deliveryDateCalendar;
     }
 }

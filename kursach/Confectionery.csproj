@@ -50,8 +50,6 @@
     <Compile Include="Core\CustomerEventType.cs" />
     <Compile Include="Core\CustomerTableItem.cs" />
     <Compile Include="Core\ErrorEventArgs.cs" />
-    <Compile Include="Core\OrderEventArgs.cs" />
-    <Compile Include="Core\OrderEventType.cs" />
     <Compile Include="Core\OrderTableItem.cs" />
     <Compile Include="Core\ProductEventArgs.cs" />
     <Compile Include="Core\ProductEventType.cs" />

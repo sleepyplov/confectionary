@@ -22,10 +22,17 @@ namespace Confectionery
             InitializeComponent();
             _store = new Store();
             _store.Error += _store_Error;
+            _store.OrderCreated += _store_OrderCreated;
             productsTable.AutoGenerateColumns = false;
             customersTable.AutoGenerateColumns = false;
             ordersTable.AutoGenerateColumns = false;
             productsTable.DataSource = _store.GetProductsTable();
+            customersTable.DataSource = _store.GetCustomersTable();
+            ordersTable.DataSource = _store.GetOrdersTable();
+        }
+
+        private void _store_OrderCreated(object sender, EventArgs e)
+        {
             customersTable.DataSource = _store.GetCustomersTable();
             ordersTable.DataSource = _store.GetOrdersTable();
         }
@@ -59,6 +66,27 @@ namespace Confectionery
             showProductForm(product);
         }
 
+        private void deleteProductButton_Click(object sender, EventArgs e)
+        {
+            if (productsTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите продукт для удаления");
+                return;
+            }
+            var rowIndex = productsTable.SelectedRows[0].Index;
+            var rowItem = (ProductTableItem)productsTable.Rows[rowIndex].DataBoundItem;
+            var result = _store.DeleteProduct(rowItem.ID);
+            if (result)
+            {
+                productsTable.DataSource = _store.GetProductsTable(productSearchBox.Text);
+            }
+        }
+
+        private void productsTable_SelectionChanged(object sender, EventArgs e)
+        {
+            deleteProductButton.Visible = productsTable.SelectedRows.Count > 0;
+        }
+
         private void productForm_Submit(object sender, ProductEventArgs e)
         {
             var result = _store.HandleProductEvent(e);
@@ -86,6 +114,22 @@ namespace Confectionery
             showCustomerForm(null);
         }
 
+        private void deleteCustomerBtn_Click(object sender, EventArgs e)
+        {
+            if (customersTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите заказчика для удаления");
+                return;
+            }
+            var rowIndex = ordersTable.SelectedRows[0].Index;
+            var rowItem = (OrderTableItem)ordersTable.Rows[rowIndex].DataBoundItem;
+            var result = _store.DeleteCustomer(rowItem.ID);
+            if (result)
+            {
+                ordersTable.DataSource = _store.GetProductsTable(searchCustomerBox.Text);
+            }
+        }
+
         private void customerForm_Submit(object sender, CustomerEventArgs e)
         {
             var result = _store.HandleCustomerEvent(e);
@@ -103,10 +147,46 @@ namespace Confectionery
             showCustomerForm(customer);
         }
 
+        private void customersTable_SelectionChanged(object sender, EventArgs e)
+        {
+            deleteCustomerBtn.Visible = customersTable.SelectedRows.Count > 0;
+        }
+
+        private void searchCustomerBtn_Click(object sender, EventArgs e)
+        {
+            customersTable.DataSource = _store.GetCustomersTable(searchCustomerBox.Text);
+        }
+
         private void createOrderBtn_Click(object sender, EventArgs e)
         {
             var form = new OrderForm(_store);
             form.ShowDialog();
+        }
+
+        private void ordersTable_SelectionChanged(object sender, EventArgs e)
+        {
+            confirmOrderBtn.Visible = ordersTable.SelectedRows.Count > 0;
+        }
+
+        private void confirmOrderBtn_Click(object sender, EventArgs e)
+        {
+            if (ordersTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите заказ");
+                return;
+            }
+            var rowIndex = ordersTable.SelectedRows[0].Index;
+            var rowItem = (OrderTableItem)ordersTable.Rows[rowIndex].DataBoundItem;
+            var result = _store.ConfirmDelivery(rowItem.ID);
+            if (result)
+            {
+                ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text);
+            }
+        }
+
+        private void searchOrderBtn_Click(object sender, EventArgs e)
+        {
+            ordersTable.DataSource = _store.GetOrdersTable(searchOrderBox.Text);
         }
     }
 }

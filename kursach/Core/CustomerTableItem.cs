@@ -25,7 +25,7 @@ namespace Confectionery.Core
             MiddleName = customer.MiddleName;
             Email = customer.Email;
             OrdersCount = customer.Orders.Count;
-            OrdersTotalPrice = customer.TotalOrdersPrice;
+            OrdersTotalPrice = customer.Orders.Aggregate(0m, (ac, o) => ac + o.TotalPrice);
         }
     }
 }
