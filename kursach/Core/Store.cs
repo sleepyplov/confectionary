@@ -30,7 +30,8 @@ namespace Confectionery.Core
                 return _products.Values;
             }
             var searcher = new Searcher(search);
-            return _products.Values.Where(p => searcher.MatchString(p.Name));
+            return _products.Values.Where(p => searcher.MatchString(p.Name) ||
+                searcher.MatchString(p.Quantity.ToString()));
         }
 
         public List<ProductTableItem> GetProductsTable(string search = "")
