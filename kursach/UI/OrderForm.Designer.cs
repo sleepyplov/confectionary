@@ -195,9 +195,19 @@ namespace Confectionery.UI
             // orderProductQuantityInput
             // 
             this.orderProductQuantityInput.Location = new System.Drawing.Point(171, 386);
+            this.orderProductQuantityInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.orderProductQuantityInput.Name = "orderProductQuantityInput";
             this.orderProductQuantityInput.Size = new System.Drawing.Size(89, 20);
             this.orderProductQuantityInput.TabIndex = 14;
+            this.orderProductQuantityInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.orderProductQuantityInput.ValueChanged += new System.EventHandler(this.orderProductQuantityInput_ValueChanged);
             // 
             // addProductBtn

@@ -29,7 +29,7 @@ namespace Confectionery.Models
             OrderProducts = orderProducts;
             DeliveryDate = deliveryDate;
             DeliveryAddress = deliveryAddress;
-            TotalPrice = orderProducts.Aggregate(0m, (ac, op) => ac + op.Product.Price);
+            TotalPrice = orderProducts.Aggregate(0m, (ac, op) => ac + op.Product.Price * op.Count);
         }
     }
 }
