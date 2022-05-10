@@ -21,40 +21,6 @@ namespace Confectionery.Core
         public event EventHandler<ErrorEventArgs> Error;
         public event EventHandler OrderCreated;
 
-        //public Store()
-        //{
-        //    Seed();
-        //}
-
-        //public void Seed()
-        //{
-        //    _products = new Dictionary<ulong, Product>
-        //    {
-        //        { 1UL, new Product(
-        //                1,
-        //                "Тортик",
-        //                new List<string> {"asfd", "asfew", "ewger", "lkjlknj"},
-        //                1234.5m,
-        //                10,
-        //                DateTime.Today.AddDays(2)
-        //        )}
-        //    };
-        //    _productIDCounter = 1;
-        //    _customers = new Dictionary<ulong, Customer>
-        //    {
-        //        { 1UL, new Customer(1, "Александр", "Палатов", "", "asdf@mail.ru") },
-        //    };
-        //    _customerIDCounter = 1;
-        //    _orders = new Dictionary<ulong, Order>
-        //    {
-        //        { 1UL, new Order(1, 1,
-        //            new List<OrderProduct>{new OrderProduct(_products[1], 2) },
-        //            DateTime.Today.AddDays(2), "adres") }
-        //    };
-        //    _orderIDCounter = 1;
-        //    _customers[1].Orders.Add(_orders[1]);
-        //}
-
         #region Products
 
         public IEnumerable<Product> FindProducts(string search)

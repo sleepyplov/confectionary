@@ -54,20 +54,21 @@ namespace Confectionery
             this.customerOrdersTotalCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerOrdersTotalPriceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ordersTab = new System.Windows.Forms.TabPage();
+            this.cancelOrderBtn = new System.Windows.Forms.Button();
+            this.showCreatedOrdersBtn = new System.Windows.Forms.Button();
+            this.showCanceledOrdersBtn = new System.Windows.Forms.Button();
+            this.showDeliveredOrdersBtn = new System.Windows.Forms.Button();
             this.confirmOrderBtn = new System.Windows.Forms.Button();
             this.searchOrderBtn = new System.Windows.Forms.Button();
             this.searchOrderBox = new System.Windows.Forms.TextBox();
             this.createOrderBtn = new System.Windows.Forms.Button();
             this.ordersTable = new System.Windows.Forms.DataGridView();
-            this.showDeliveredOrdersBtn = new System.Windows.Forms.Button();
-            this.showCanceledOrdersBtn = new System.Windows.Forms.Button();
-            this.showCreatedOrdersBtn = new System.Windows.Forms.Button();
-            this.cancelOrderBtn = new System.Windows.Forms.Button();
             this.orderIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderCustomerEmailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderTotalPriceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderDeliveryAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderDeliveryDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exitBtn = new System.Windows.Forms.Button();
             this.mainTabsControl.SuspendLayout();
             this.productsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productsTable)).BeginInit();
@@ -330,6 +331,47 @@ namespace Confectionery
             this.ordersTab.Text = "Заказы";
             this.ordersTab.UseVisualStyleBackColor = true;
             // 
+            // cancelOrderBtn
+            // 
+            this.cancelOrderBtn.Location = new System.Drawing.Point(5, 211);
+            this.cancelOrderBtn.Name = "cancelOrderBtn";
+            this.cancelOrderBtn.Size = new System.Drawing.Size(125, 35);
+            this.cancelOrderBtn.TabIndex = 8;
+            this.cancelOrderBtn.Text = "Отменить";
+            this.cancelOrderBtn.UseVisualStyleBackColor = true;
+            this.cancelOrderBtn.Click += new System.EventHandler(this.cancelOrderBtn_Click);
+            // 
+            // showCreatedOrdersBtn
+            // 
+            this.showCreatedOrdersBtn.Enabled = false;
+            this.showCreatedOrdersBtn.Location = new System.Drawing.Point(5, 88);
+            this.showCreatedOrdersBtn.Name = "showCreatedOrdersBtn";
+            this.showCreatedOrdersBtn.Size = new System.Drawing.Size(125, 35);
+            this.showCreatedOrdersBtn.TabIndex = 7;
+            this.showCreatedOrdersBtn.Text = "Показать созданные";
+            this.showCreatedOrdersBtn.UseVisualStyleBackColor = true;
+            this.showCreatedOrdersBtn.Click += new System.EventHandler(this.showCreatedOrdersBtn_Click);
+            // 
+            // showCanceledOrdersBtn
+            // 
+            this.showCanceledOrdersBtn.Location = new System.Drawing.Point(5, 170);
+            this.showCanceledOrdersBtn.Name = "showCanceledOrdersBtn";
+            this.showCanceledOrdersBtn.Size = new System.Drawing.Size(125, 35);
+            this.showCanceledOrdersBtn.TabIndex = 6;
+            this.showCanceledOrdersBtn.Text = "Показать отмененные";
+            this.showCanceledOrdersBtn.UseVisualStyleBackColor = true;
+            this.showCanceledOrdersBtn.Click += new System.EventHandler(this.showCanceledOrdersBtn_Click);
+            // 
+            // showDeliveredOrdersBtn
+            // 
+            this.showDeliveredOrdersBtn.Location = new System.Drawing.Point(5, 129);
+            this.showDeliveredOrdersBtn.Name = "showDeliveredOrdersBtn";
+            this.showDeliveredOrdersBtn.Size = new System.Drawing.Size(125, 35);
+            this.showDeliveredOrdersBtn.TabIndex = 5;
+            this.showDeliveredOrdersBtn.Text = "Показать доставленные";
+            this.showDeliveredOrdersBtn.UseVisualStyleBackColor = true;
+            this.showDeliveredOrdersBtn.Click += new System.EventHandler(this.showDeliveredOrdersBtn_Click);
+            // 
             // confirmOrderBtn
             // 
             this.confirmOrderBtn.Location = new System.Drawing.Point(5, 47);
@@ -390,47 +432,6 @@ namespace Confectionery
             this.ordersTable.TabIndex = 0;
             this.ordersTable.SelectionChanged += new System.EventHandler(this.ordersTable_SelectionChanged);
             // 
-            // showDeliveredOrdersBtn
-            // 
-            this.showDeliveredOrdersBtn.Location = new System.Drawing.Point(5, 129);
-            this.showDeliveredOrdersBtn.Name = "showDeliveredOrdersBtn";
-            this.showDeliveredOrdersBtn.Size = new System.Drawing.Size(125, 35);
-            this.showDeliveredOrdersBtn.TabIndex = 5;
-            this.showDeliveredOrdersBtn.Text = "Показать доставленные";
-            this.showDeliveredOrdersBtn.UseVisualStyleBackColor = true;
-            this.showDeliveredOrdersBtn.Click += new System.EventHandler(this.showDeliveredOrdersBtn_Click);
-            // 
-            // showCanceledOrdersBtn
-            // 
-            this.showCanceledOrdersBtn.Location = new System.Drawing.Point(5, 170);
-            this.showCanceledOrdersBtn.Name = "showCanceledOrdersBtn";
-            this.showCanceledOrdersBtn.Size = new System.Drawing.Size(125, 35);
-            this.showCanceledOrdersBtn.TabIndex = 6;
-            this.showCanceledOrdersBtn.Text = "Показать отмененные";
-            this.showCanceledOrdersBtn.UseVisualStyleBackColor = true;
-            this.showCanceledOrdersBtn.Click += new System.EventHandler(this.showCanceledOrdersBtn_Click);
-            // 
-            // showCreatedOrdersBtn
-            // 
-            this.showCreatedOrdersBtn.Enabled = false;
-            this.showCreatedOrdersBtn.Location = new System.Drawing.Point(5, 88);
-            this.showCreatedOrdersBtn.Name = "showCreatedOrdersBtn";
-            this.showCreatedOrdersBtn.Size = new System.Drawing.Size(125, 35);
-            this.showCreatedOrdersBtn.TabIndex = 7;
-            this.showCreatedOrdersBtn.Text = "Показать созданные";
-            this.showCreatedOrdersBtn.UseVisualStyleBackColor = true;
-            this.showCreatedOrdersBtn.Click += new System.EventHandler(this.showCreatedOrdersBtn_Click);
-            // 
-            // cancelOrderBtn
-            // 
-            this.cancelOrderBtn.Location = new System.Drawing.Point(5, 211);
-            this.cancelOrderBtn.Name = "cancelOrderBtn";
-            this.cancelOrderBtn.Size = new System.Drawing.Size(125, 35);
-            this.cancelOrderBtn.TabIndex = 8;
-            this.cancelOrderBtn.Text = "Отменить";
-            this.cancelOrderBtn.UseVisualStyleBackColor = true;
-            this.cancelOrderBtn.Click += new System.EventHandler(this.cancelOrderBtn_Click);
-            // 
             // orderIDColumn
             // 
             this.orderIDColumn.DataPropertyName = "ID";
@@ -466,11 +467,22 @@ namespace Confectionery
             this.orderDeliveryDateColumn.Name = "orderDeliveryDateColumn";
             this.orderDeliveryDateColumn.ReadOnly = true;
             // 
+            // exitBtn
+            // 
+            this.exitBtn.Location = new System.Drawing.Point(657, 7);
+            this.exitBtn.Name = "exitBtn";
+            this.exitBtn.Size = new System.Drawing.Size(129, 26);
+            this.exitBtn.TabIndex = 1;
+            this.exitBtn.Text = "Выйти";
+            this.exitBtn.UseVisualStyleBackColor = true;
+            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.mainTabsControl);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -530,6 +542,7 @@ namespace Confectionery
         private System.Windows.Forms.DataGridViewTextBoxColumn orderTotalPriceColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDeliveryAddressColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDeliveryDateColumn;
+        private System.Windows.Forms.Button exitBtn;
     }
 }
 

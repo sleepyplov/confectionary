@@ -41,7 +41,7 @@ namespace Confectionery
 
         private void _store_Error(object sender, ErrorEventArgs e)
         {
-            MessageBox.Show(e.Message, "Инсульт жопы");
+            MessageBox.Show(e.Message);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -256,6 +256,11 @@ namespace Confectionery
                 ordersTable.DataSource = _store.GetOrdersTable(
                     searchOrderBox.Text, _selectedOrderStatus);
             }
+        }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
