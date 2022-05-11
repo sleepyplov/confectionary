@@ -157,8 +157,19 @@ namespace Confectionery.UI
 
         private void removeProductBtn_Click(object sender, EventArgs e)
         {
-            _orderProducts.RemoveAt(orderProductsBox.SelectedIndex);
-            orderProductsBox.Items.RemoveAt(orderProductsBox.SelectedIndex);
+            int index;
+            if (orderProductsBox.SelectedIndex < 0 ||
+                orderProductsBox.SelectedIndex > _orderProducts.Count)
+            {
+                index = _orderProducts.FindIndex(op => op.Product.ID == _selectedProduct.ID);
+            } else
+            {
+                index = orderProductsBox.SelectedIndex;
+            }
+            _orderProducts.RemoveAt(index);
+            orderProductsBox.Items.RemoveAt(index);
+            addProductBtn.Visible = true;
+            removeProductBtn.Visible = false;
             updateTotalPrice();
         }
 

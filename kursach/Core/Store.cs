@@ -29,9 +29,11 @@ namespace Confectionery.Core
             {
                 return _products.Values;
             }
-            var searcher = new Searcher(search);
-            return _products.Values.Where(p => searcher.MatchString(p.Name) ||
-                searcher.MatchString(p.Quantity.ToString()));
+            return _products.Values.Where(p =>
+            {
+                var searcher = new Searcher(search);
+                return searcher.MatchString(p.Name) || searcher.MatchString(p.Quantity.ToString());
+            });
         }
 
         public List<ProductTableItem> GetProductsTable(string search = "")
@@ -103,12 +105,15 @@ namespace Confectionery.Core
             if (string.IsNullOrEmpty(search))
             {
                 return _customers.Values;
-            }
-            var searcher = new Searcher(search);
-            return _customers.Values.Where(c => searcher.MatchString(c.FirstName) ||
-                searcher.MatchString(c.LastName) ||
-                searcher.MatchString(c.MiddleName) ||
-                searcher.MatchString(c.Email));
+            } 
+            return _customers.Values.Where(c =>
+            {
+                var searcher = new Searcher(search);
+                return searcher.MatchString(c.FirstName) ||
+                    searcher.MatchString(c.LastName) ||
+                    searcher.MatchString(c.MiddleName) ||
+                    searcher.MatchString(c.Email);
+            });
         }
 
         public IList<CustomerTableItem> GetCustomersTable(string search = "")
@@ -181,9 +186,12 @@ namespace Confectionery.Core
             {
                 return values;
             }
-            var searcher = new Searcher(search);
-            return values.Where(o => searcher.MatchString(o.ID.ToString()) ||
-                searcher.MatchString(_customers[o.CustomerID].Email));
+            return values.Where(o =>
+            {
+                var searcher = new Searcher(search);
+                return searcher.MatchString(o.ID.ToString()) ||
+                    searcher.MatchString(_customers[o.CustomerID].Email);
+            });
         }
 
         public IList<OrderTableItem> GetOrdersTable(string search = "", OrderStatus status = OrderStatus.Created)
