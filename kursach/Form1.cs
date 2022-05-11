@@ -218,7 +218,7 @@ namespace Confectionery
 
         private void showDeliveredOrdersBtn_Click(object sender, EventArgs e)
         {
-            _selectedOrderStatus = OrderStatus.Deliverered;
+            _selectedOrderStatus = OrderStatus.Delivered;
             showCreatedOrdersBtn.Enabled = true;
             showDeliveredOrdersBtn.Enabled = false;
             showCanceledOrdersBtn.Enabled = true;

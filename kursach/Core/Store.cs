@@ -236,7 +236,7 @@ namespace Confectionery.Core
                 return false;
             }
             var order = _orders[id];
-            if (order.Status == OrderStatus.Deliverered)
+            if (order.Status == OrderStatus.Delivered)
             {
                 Error?.Invoke(this, new ErrorEventArgs("Заказ уже доставлен"));
                 return false;
@@ -246,7 +246,7 @@ namespace Confectionery.Core
                 Error?.Invoke(this, new ErrorEventArgs("Заказ был отменен"));
                 return false;
             }
-            order.Status = OrderStatus.Deliverered;
+            order.Status = OrderStatus.Delivered;
             return true;
         }
 
@@ -258,7 +258,7 @@ namespace Confectionery.Core
                 return false;
             }
             var order = _orders[id];
-            if (order.Status == OrderStatus.Deliverered)
+            if (order.Status == OrderStatus.Delivered)
             {
                 Error?.Invoke(this, new ErrorEventArgs("Заказ уже доставлен"));
                 return false;
@@ -284,7 +284,7 @@ namespace Confectionery.Core
                 return false;
             }
             var order = _orders[id];
-            if (order.Status != OrderStatus.Canceled && order.Status != OrderStatus.Deliverered)
+            if (order.Status != OrderStatus.Canceled && order.Status != OrderStatus.Delivered)
             {
                 Error?.Invoke(this,
                     new ErrorEventArgs("Можно удалять только доставленные и отменненные заказы"));

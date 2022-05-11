@@ -66,7 +66,7 @@ namespace Confectionery.UI
         private void SearchProducts()
         {
             var search = searchProductInput.Text;
-            _products = _store.FindProducts(search).ToList();
+            _products = _store.FindProducts(search).Where(p => p.Quantity > 0).ToList();
             selectAddProductBox.DataSource = _products.Select(p => p.GetListBoxString()).ToList();
         }
 
@@ -85,14 +85,14 @@ namespace Confectionery.UI
 
         private void HideCurrentProduct()
         {
-            _selectedProduct = null;
-            _selectedOrderProduct = null;
+            //_selectedProduct = null;
+            //_selectedOrderProduct = null;
             productNameLabel.Text = "";
             productPriceLabel.Text = "";
             productQuantityLabel.Text = "";
             productExpiryLabel.Text = "";
             orderProductQuantityLabel.Visible = false;
-            orderProductQuantityInput.Value = 0;
+            orderProductQuantityInput.Value = 1;
             orderProductQuantityInput.Visible = false;
             addProductBtn.Visible = false;
             removeProductBtn.Visible = false;
@@ -124,7 +124,7 @@ namespace Confectionery.UI
                 }
                 else
                 {
-                    orderProductQuantityInput.Value = 0;
+                    orderProductQuantityInput.Value = 1;
                     addProductBtn.Visible = true;
                     removeProductBtn.Visible = false;
                 }
@@ -230,8 +230,7 @@ namespace Confectionery.UI
 
         private void orderProductQuantityInput_ValueChanged(object sender, EventArgs e)
         {
-            if (_selectedOrderProduct == null || orderProductsBox.SelectedIndex < 0 ||
-                orderProductsBox.SelectedIndex >= _orderProducts.Count)
+            if (_selectedOrderProduct == null)
             {
                 if (orderProductQuantityInput.Value > _selectedProduct.Quantity)
                 {
@@ -245,12 +244,14 @@ namespace Confectionery.UI
                 {
                     orderProductQuantityInput.Value = _selectedOrderProduct.Product.Quantity;
                 }
-                _orderProducts[orderProductsBox.SelectedIndex].Count =
-                    (uint)orderProductQuantityInput.Value;
-                orderProductsBox.Items[orderProductsBox.SelectedIndex] =
-                    _orderProducts[orderProductsBox.SelectedIndex].GetListBoxString();
-                updateTotalPrice();
             }
+            var index = _orderProducts.FindIndex(op =>
+                op.Product.ID == _selectedOrderProduct.Product.ID);
+            _orderProducts[index].Count =
+                (uint)orderProductQuantityInput.Value;
+            orderProductsBox.Items[index] =
+                _orderProducts[index].GetListBoxString();
+            updateTotalPrice();
         }
     }
 }

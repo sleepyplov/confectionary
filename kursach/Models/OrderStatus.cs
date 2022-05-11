@@ -9,7 +9,7 @@ namespace Confectionery.Models
     enum OrderStatus
     {
         Created,
-        Deliverered,
+        Delivered,
         Canceled,
     }
 }
