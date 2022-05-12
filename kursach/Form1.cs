@@ -277,6 +277,9 @@ namespace Confectionery
                 {
                     e.Cancel = true;
                 }
+            } else
+            {
+                e.Cancel = true;
             }
         }
     }

@@ -485,7 +485,7 @@ namespace Confectionery
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.mainTabsControl);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Кондитерская фабрика";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mainTabsControl.ResumeLayout(false);
