@@ -473,7 +473,7 @@ namespace Confectionery
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(129, 26);
             this.exitBtn.TabIndex = 1;
-            this.exitBtn.Text = "Выйти";
+            this.exitBtn.Text = "Сохранить и выйти";
             this.exitBtn.UseVisualStyleBackColor = true;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
