@@ -258,9 +258,26 @@ namespace Confectionery
             }
         }
 
+        private bool _dataSaved = false;
         private void exitBtn_Click(object sender, EventArgs e)
         {
+            _dataSaved = _store.Save();
             Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_dataSaved)
+            {
+                return;
+            }
+            if (MessageBox.Show("Сохранить данные и выйти?", "Выход",
+                MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if (!_store.Save())
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

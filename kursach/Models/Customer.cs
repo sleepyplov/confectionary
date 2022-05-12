@@ -9,7 +9,7 @@ namespace Confectionery.Models
 {
     class Customer
     {
-        public ulong ID { get; }
+        public ulong ID { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -28,6 +28,8 @@ namespace Confectionery.Models
             MiddleName = middleName;
             Email = email;
         }
+
+        public Customer() { }
 
         public string GetListBoxString()
         {

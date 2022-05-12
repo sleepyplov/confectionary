@@ -18,8 +18,29 @@ namespace Confectionery.Core
         private Dictionary<ulong, Customer> _customers = new Dictionary<ulong, Customer>();
         private Dictionary<ulong, Order> _orders = new Dictionary<ulong, Order>();
 
+        private SaveManager _saveManager = new SaveManager();
+
         public event EventHandler<ErrorEventArgs> Error;
         public event EventHandler OrderCreated;
+
+        public Store()
+        {
+            _saveManager.Load(out _products, out _customers, out _orders,
+                out _productIDCounter, out _customerIDCounter, out _orderIDCounter);
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                _saveManager.Save(_products, _customers);
+                return true;
+            } catch
+            {
+                Error?.Invoke(this, new ErrorEventArgs("Ошибка при сохранении данных"));
+                return false;
+            }
+        }
 
         #region Products
 

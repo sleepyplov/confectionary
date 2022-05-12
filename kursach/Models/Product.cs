@@ -8,8 +8,8 @@ namespace Confectionery.Models
 {
     class Product
     {
-        public ulong ID { get; }
-        public string Name { get; }
+        public ulong ID { get; set; }
+        public string Name { get; set; }
 
         public List<string> Contents { get; set; }
 
@@ -17,7 +17,7 @@ namespace Confectionery.Models
 
         public uint Quantity { get; set; }
 
-        public DateTime ExpiryDate { get; }
+        public DateTime ExpiryDate { get; set; }
 
         public Product(ulong id, string name, List<string> contents,
             decimal price, uint quantity, DateTime expiry)
@@ -29,6 +29,8 @@ namespace Confectionery.Models
             Quantity = quantity;
             ExpiryDate = expiry;
         }
+
+        public Product() { }
 
         public string GetListBoxString()
         {

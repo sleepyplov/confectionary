@@ -8,18 +8,20 @@ namespace Confectionery.Models
 {
     class Order
     {
-        public ulong ID { get; }
-        public List<OrderProduct> OrderProducts { get; }
+        public ulong ID { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
 
-        public ulong CustomerID { get; }
+        public ulong CustomerID { get; set; }
 
-        public DateTime DeliveryDate { get; }
+        public DateTime DeliveryDate { get; set; }
 
-        public string DeliveryAddress { get; }
+        public string DeliveryAddress { get; set; }
 
-        public decimal TotalPrice { get; }
+        public decimal TotalPrice { get; set; }
 
         public OrderStatus Status { get; set; } = OrderStatus.Created;
+
+        public Order() { }
 
         public Order(ulong id, ulong customerId, List<OrderProduct> orderProducts,
             DateTime deliveryDate, string deliveryAddress)

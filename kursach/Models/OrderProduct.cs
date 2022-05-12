@@ -8,8 +8,10 @@ namespace Confectionery.Models
 {
     class OrderProduct
     {
-        public Product Product { get; }
+        public Product Product { get; set; }
         public uint Count { get; set; }
+
+        public OrderProduct() { }
 
         public OrderProduct(Product product, uint count)
         {
