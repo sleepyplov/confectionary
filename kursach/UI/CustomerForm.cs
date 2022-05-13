@@ -24,9 +24,11 @@ namespace Confectionery.UI
             InitializeComponent();
             if (customer == null)
             {
+                Text = "Новый заказчик";
                 return;
             }
             _customer = customer;
+            Text = customer.GetListBoxString();
             firstNameInput.Text = customer.FirstName;
             lastNameInput.Text = customer.LastName;
             middleNameInput.Text = customer.MiddleName;

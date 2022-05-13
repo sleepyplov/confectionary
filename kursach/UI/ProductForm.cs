@@ -22,6 +22,7 @@ namespace Confectionery.UI
             expiryCalendar.MaxDate = DateTime.Today.AddYears(1);
             if (product == null)
             {
+                Text = "Новый продукт";
                 return;
             }
             _product = product;

@@ -325,7 +325,7 @@ namespace Confectionery.UI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "OrderForm";
-            this.Text = "OrderForm";
+            this.Text = "Новый продукт";
             ((System.ComponentModel.ISupportInitialize)(this.orderProductQuantityInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
