@@ -65,43 +65,52 @@ namespace Confectionery.Core
                 orders = new Dictionary<ulong, Order>();
                 return;
             }
-            using (var stream = File.OpenRead(_productsSavePath))
+            try
             {
-                products = JsonSerializer.Deserialize< Dictionary<ulong, Product>>(stream);
-            }
-            foreach (var id in products.Keys)
-            {
-                if (id > productIDCounter)
+                using (var stream = File.OpenRead(_productsSavePath))
                 {
-                    productIDCounter = id;
+                    products = JsonSerializer.Deserialize<Dictionary<ulong, Product>>(stream);
                 }
-            }
-            var options = new JsonSerializerOptions
-            {
-                Converters =
+                foreach (var id in products.Keys)
+                {
+                    if (id > productIDCounter)
+                    {
+                        productIDCounter = id;
+                    }
+                }
+                var options = new JsonSerializerOptions
+                {
+                    Converters =
                 {
                     new OrderProductIDConverter(products),
                 }
-            };
-            using (var stream = File.OpenRead(_customersSavePath))
-            {
-                customers = JsonSerializer.Deserialize< Dictionary<ulong, Customer>>(stream, options);
-            }
-            orders = new Dictionary<ulong, Order>();
-            foreach (var c in customers.Values)
-            {
-                if (c.ID > customerIDCounter)
+                };
+                using (var stream = File.OpenRead(_customersSavePath))
                 {
-                    customerIDCounter = c.ID;
+                    customers = JsonSerializer.Deserialize<Dictionary<ulong, Customer>>(stream, options);
                 }
-                foreach (var o in c.Orders)
+                orders = new Dictionary<ulong, Order>();
+                foreach (var c in customers.Values)
                 {
-                    orders.Add(o.ID, o);
-                    if (o.ID > orderIDCounter)
+                    if (c.ID > customerIDCounter)
                     {
-                        orderIDCounter = o.ID;
+                        customerIDCounter = c.ID;
+                    }
+                    foreach (var o in c.Orders)
+                    {
+                        orders.Add(o.ID, o);
+                        if (o.ID > orderIDCounter)
+                        {
+                            orderIDCounter = o.ID;
+                        }
                     }
                 }
+            }
+            catch
+            {
+                products = new Dictionary<ulong, Product>();
+                customers = new Dictionary<ulong, Customer>();
+                orders = new Dictionary<ulong, Order>();
             }
         }
     }
