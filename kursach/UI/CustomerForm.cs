@@ -15,7 +15,7 @@ namespace Confectionery.UI
 {
     partial class CustomerForm : Form
     {
-        private readonly Regex _nameRegex = new Regex(@"^[А-Я][а-я]*$");
+        private readonly Regex _nameRegex = new Regex(@"^[А-Я]{1}[а-я]*([-]{1}[А-Я]{1}[а-я]*)?$");
         private readonly Regex _emailRegex =new Regex(@"^(?:(?:(?:(?:[a-zA-Z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(?:\.([a-zA-Z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|(?:(?:\x22)(?:(?:(?:(?:\x20|\x09)*(?:\x0D\x0A))?(?:\x20|\x09)+)?(?:(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x7F]|\x21|[\x23-\x5B]|[\x5D-\x7E]|[\x00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[\x01-\x09\x0B\x0C\x0D-\x7F]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(?:(?:(?:\x20|\x09)*(?:\x0D\x0A))?(\x20|\x09)+)?(?:\x22))))@(?:(?:(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(?:[a-zA-Z]|\d|-|\.|~|[\x00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*(?:[a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(?:(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(?:(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(?:[a-zA-Z]|\d|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*(?:[a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$");
 
         private Customer _customer;
