@@ -210,7 +210,7 @@ namespace Confectionery.Core
             return values.Where(o =>
             {
                 var searcher = new Searcher(search);
-                return searcher.MatchString(o.ID.ToString()) ||
+                return searcher.MatchString(o.TrackNumber.ToString()) ||
                     searcher.MatchString(_customers[o.CustomerID].Email);
             });
         }
