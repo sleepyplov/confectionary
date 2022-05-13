@@ -47,12 +47,6 @@ namespace Confectionery
             this.deleteCustomerBtn = new System.Windows.Forms.Button();
             this.addCustomerBtn = new System.Windows.Forms.Button();
             this.customersTable = new System.Windows.Forms.DataGridView();
-            this.customerLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerMiddleNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerEmailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerOrdersTotalCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerOrdersTotalPriceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ordersTab = new System.Windows.Forms.TabPage();
             this.cancelOrderBtn = new System.Windows.Forms.Button();
             this.showCreatedOrdersBtn = new System.Windows.Forms.Button();
@@ -63,12 +57,18 @@ namespace Confectionery
             this.searchOrderBox = new System.Windows.Forms.TextBox();
             this.createOrderBtn = new System.Windows.Forms.Button();
             this.ordersTable = new System.Windows.Forms.DataGridView();
+            this.exitBtn = new System.Windows.Forms.Button();
+            this.customerLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerMiddleNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerEmailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerOrdersTotalCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerOrdersTotalPriceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderCustomerEmailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderTotalPriceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderDeliveryAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderDeliveryDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exitBtn = new System.Windows.Forms.Button();
             this.mainTabsControl.SuspendLayout();
             this.productsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productsTable)).BeginInit();
@@ -271,48 +271,6 @@ namespace Confectionery
             this.customersTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.customersTable_CellDoubleClick);
             this.customersTable.SelectionChanged += new System.EventHandler(this.customersTable_SelectionChanged);
             // 
-            // customerLastNameColumn
-            // 
-            this.customerLastNameColumn.DataPropertyName = "LastName";
-            this.customerLastNameColumn.HeaderText = "Фамилия";
-            this.customerLastNameColumn.Name = "customerLastNameColumn";
-            this.customerLastNameColumn.ReadOnly = true;
-            // 
-            // customerFirstNameColumn
-            // 
-            this.customerFirstNameColumn.DataPropertyName = "FirstName";
-            this.customerFirstNameColumn.HeaderText = "Имя";
-            this.customerFirstNameColumn.Name = "customerFirstNameColumn";
-            this.customerFirstNameColumn.ReadOnly = true;
-            // 
-            // customerMiddleNameColumn
-            // 
-            this.customerMiddleNameColumn.DataPropertyName = "MiddleName";
-            this.customerMiddleNameColumn.HeaderText = "Отчество";
-            this.customerMiddleNameColumn.Name = "customerMiddleNameColumn";
-            this.customerMiddleNameColumn.ReadOnly = true;
-            // 
-            // customerEmailColumn
-            // 
-            this.customerEmailColumn.DataPropertyName = "Email";
-            this.customerEmailColumn.HeaderText = "Email";
-            this.customerEmailColumn.Name = "customerEmailColumn";
-            this.customerEmailColumn.ReadOnly = true;
-            // 
-            // customerOrdersTotalCountColumn
-            // 
-            this.customerOrdersTotalCountColumn.DataPropertyName = "OrdersTotalCount";
-            this.customerOrdersTotalCountColumn.HeaderText = "Количество заказов";
-            this.customerOrdersTotalCountColumn.Name = "customerOrdersTotalCountColumn";
-            this.customerOrdersTotalCountColumn.ReadOnly = true;
-            // 
-            // customerOrdersTotalPriceColumn
-            // 
-            this.customerOrdersTotalPriceColumn.DataPropertyName = "OrdersTotalPrice";
-            this.customerOrdersTotalPriceColumn.HeaderText = "Сумма заказов";
-            this.customerOrdersTotalPriceColumn.Name = "customerOrdersTotalPriceColumn";
-            this.customerOrdersTotalPriceColumn.ReadOnly = true;
-            // 
             // ordersTab
             // 
             this.ordersTab.Controls.Add(this.cancelOrderBtn);
@@ -432,9 +390,61 @@ namespace Confectionery
             this.ordersTable.TabIndex = 0;
             this.ordersTable.SelectionChanged += new System.EventHandler(this.ordersTable_SelectionChanged);
             // 
+            // exitBtn
+            // 
+            this.exitBtn.Location = new System.Drawing.Point(657, 7);
+            this.exitBtn.Name = "exitBtn";
+            this.exitBtn.Size = new System.Drawing.Size(129, 26);
+            this.exitBtn.TabIndex = 1;
+            this.exitBtn.Text = "Сохранить и выйти";
+            this.exitBtn.UseVisualStyleBackColor = true;
+            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            // 
+            // customerLastNameColumn
+            // 
+            this.customerLastNameColumn.DataPropertyName = "LastName";
+            this.customerLastNameColumn.HeaderText = "Фамилия";
+            this.customerLastNameColumn.Name = "customerLastNameColumn";
+            this.customerLastNameColumn.ReadOnly = true;
+            // 
+            // customerFirstNameColumn
+            // 
+            this.customerFirstNameColumn.DataPropertyName = "FirstName";
+            this.customerFirstNameColumn.HeaderText = "Имя";
+            this.customerFirstNameColumn.Name = "customerFirstNameColumn";
+            this.customerFirstNameColumn.ReadOnly = true;
+            // 
+            // customerMiddleNameColumn
+            // 
+            this.customerMiddleNameColumn.DataPropertyName = "MiddleName";
+            this.customerMiddleNameColumn.HeaderText = "Отчество";
+            this.customerMiddleNameColumn.Name = "customerMiddleNameColumn";
+            this.customerMiddleNameColumn.ReadOnly = true;
+            // 
+            // customerEmailColumn
+            // 
+            this.customerEmailColumn.DataPropertyName = "Email";
+            this.customerEmailColumn.HeaderText = "Email";
+            this.customerEmailColumn.Name = "customerEmailColumn";
+            this.customerEmailColumn.ReadOnly = true;
+            // 
+            // customerOrdersTotalCountColumn
+            // 
+            this.customerOrdersTotalCountColumn.DataPropertyName = "OrdersCount";
+            this.customerOrdersTotalCountColumn.HeaderText = "Количество заказов";
+            this.customerOrdersTotalCountColumn.Name = "customerOrdersTotalCountColumn";
+            this.customerOrdersTotalCountColumn.ReadOnly = true;
+            // 
+            // customerOrdersTotalPriceColumn
+            // 
+            this.customerOrdersTotalPriceColumn.DataPropertyName = "OrdersTotalPrice";
+            this.customerOrdersTotalPriceColumn.HeaderText = "Сумма заказов";
+            this.customerOrdersTotalPriceColumn.Name = "customerOrdersTotalPriceColumn";
+            this.customerOrdersTotalPriceColumn.ReadOnly = true;
+            // 
             // orderIDColumn
             // 
-            this.orderIDColumn.DataPropertyName = "ID";
+            this.orderIDColumn.DataPropertyName = "TrackNumber";
             this.orderIDColumn.HeaderText = "Трек-номер";
             this.orderIDColumn.Name = "orderIDColumn";
             this.orderIDColumn.ReadOnly = true;
@@ -466,16 +476,6 @@ namespace Confectionery
             this.orderDeliveryDateColumn.HeaderText = "Дата доставки";
             this.orderDeliveryDateColumn.Name = "orderDeliveryDateColumn";
             this.orderDeliveryDateColumn.ReadOnly = true;
-            // 
-            // exitBtn
-            // 
-            this.exitBtn.Location = new System.Drawing.Point(657, 7);
-            this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(129, 26);
-            this.exitBtn.TabIndex = 1;
-            this.exitBtn.Text = "Сохранить и выйти";
-            this.exitBtn.UseVisualStyleBackColor = true;
-            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
             // Form1
             // 
@@ -525,12 +525,6 @@ namespace Confectionery
         private System.Windows.Forms.Button addCustomerBtn;
         private System.Windows.Forms.DataGridView ordersTable;
         private System.Windows.Forms.Button createOrderBtn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerLastNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerFirstNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerMiddleNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerEmailColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerOrdersTotalCountColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerOrdersTotalPriceColumn;
         private System.Windows.Forms.Button confirmOrderBtn;
         private System.Windows.Forms.Button searchOrderBtn;
         private System.Windows.Forms.TextBox searchOrderBox;
@@ -538,12 +532,18 @@ namespace Confectionery
         private System.Windows.Forms.Button showCanceledOrdersBtn;
         private System.Windows.Forms.Button showDeliveredOrdersBtn;
         private System.Windows.Forms.Button cancelOrderBtn;
+        private System.Windows.Forms.Button exitBtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerLastNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerFirstNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerMiddleNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerEmailColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerOrdersTotalCountColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerOrdersTotalPriceColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderCustomerEmailColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderTotalPriceColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDeliveryAddressColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDeliveryDateColumn;
-        private System.Windows.Forms.Button exitBtn;
     }
 }
 

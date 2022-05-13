@@ -10,6 +10,7 @@ namespace Confectionery.Core
     class OrderTableItem
     {
         public ulong ID { get; }
+        public long TrackNumber { get; }
         public string CustomerEmail { get; }
         public decimal TotalPrice { get; }
         public string DeliveryAddress { get; }
@@ -19,6 +20,7 @@ namespace Confectionery.Core
         public OrderTableItem(Order order, Customer customer)
         {
             ID = order.ID;
+            TrackNumber = order.TrackNumber;
             CustomerEmail = customer.Email;
             TotalPrice = order.TotalPrice;
             DeliveryAddress = order.DeliveryAddress;

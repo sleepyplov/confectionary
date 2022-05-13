@@ -9,6 +9,8 @@ namespace Confectionery.Models
     class Order
     {
         public ulong ID { get; set; }
+
+        public long TrackNumber { get; set; }
         public List<OrderProduct> OrderProducts { get; set; }
 
         public ulong CustomerID { get; set; }
@@ -27,6 +29,7 @@ namespace Confectionery.Models
             DateTime deliveryDate, string deliveryAddress)
         {
             ID = id;
+            TrackNumber = DateTime.Now.Ticks;
             CustomerID = customerId;
             OrderProducts = orderProducts;
             DeliveryDate = deliveryDate;
