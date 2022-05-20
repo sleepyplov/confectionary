@@ -123,8 +123,8 @@ namespace Confectionery
                 MessageBox.Show("Выберите заказчика для удаления");
                 return;
             }
-            var rowIndex = ordersTable.SelectedRows[0].Index;
-            var rowItem = (OrderTableItem)ordersTable.Rows[rowIndex].DataBoundItem;
+            var rowIndex = customersTable.SelectedRows[0].Index;
+            var rowItem = (CustomerTableItem)customersTable.Rows[rowIndex].DataBoundItem;
             var result = _store.DeleteCustomer(rowItem.ID);
             if (result)
             {
